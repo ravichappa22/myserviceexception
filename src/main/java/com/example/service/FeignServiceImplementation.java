@@ -2,10 +2,13 @@ package com.example.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bff.core.framework.exception.FrameworkError;
 import com.bff.core.framework.exception.FrameworkValidationError;
 import com.bff.core.framework.exception.Message;
 
@@ -24,7 +27,12 @@ public class FeignServiceImplementation {
 			response = feignInterface.getMyName(authorization);
 		} catch (Exception e) {
 			//create top error
-			FrameworkValidationError frameworkValidationError = new FrameworkValidationError("1000",e);
+			Map<String, Object> details = new HashedMap();
+			details.put("claimNumber", "123456");
+			details.put("generator", "RestService");
+			details.put("sourceOfError", "MemberValidation");
+			FrameworkValidationError frameworkValidationError = new FrameworkValidationError("1000", details, e);
+			
 			//create detailed messages
 			Message exceptionMessage = new Message();
 			exceptionMessage.setCode("1001");
@@ -34,7 +42,10 @@ public class FeignServiceImplementation {
 			List<Message> messageList = new ArrayList<Message>();
 			messageList.add(exceptionMessage);
 			
+			
+			
 			frameworkValidationError.setValidationMessages(messageList);
+			
 			throw frameworkValidationError;
 		}
 		return response;

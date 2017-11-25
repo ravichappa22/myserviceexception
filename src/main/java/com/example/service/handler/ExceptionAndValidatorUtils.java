@@ -36,8 +36,7 @@ public class ExceptionAndValidatorUtils {
 		List<ObjectError> allErrors = objectErrors.getAllErrors();
 		for (ObjectError objError : allErrors) {
 
-			// TODO Hack around a potential spring validation framework bug?
-			// Remove the following lines when it is fixed.
+			
 			Object[] errorArgs = objError.getArguments();
 			if (errorArgs != null && errorArgs.length > 0 && errorArgs[0] != null
 					&& errorArgs[0].getClass().isArray()) {
