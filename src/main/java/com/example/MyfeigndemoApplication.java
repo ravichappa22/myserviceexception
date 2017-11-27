@@ -7,9 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 import com.example.service.FeignInterface;
+import com.example.service.MyAnotherServiceClient;
 
 @SpringBootApplication
-@EnableFeignClients(basePackageClasses = FeignInterface.class)
+@EnableFeignClients(basePackageClasses = {FeignInterface.class, MyAnotherServiceClient.class})
 public class MyfeigndemoApplication {
 
 	public static void main(String[] args) {

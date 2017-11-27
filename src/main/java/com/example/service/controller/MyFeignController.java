@@ -16,5 +16,10 @@ public class MyFeignController {
 	public String getFeignResponse(){
 		return feignServiceClient.getMyName();
 	}
+	
+	@RequestMapping(value="/anothername", produces="application/json")
+	public String getException(){
+		return feignServiceClient.getException();
+	}
 
 }
