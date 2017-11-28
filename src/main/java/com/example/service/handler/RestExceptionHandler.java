@@ -59,7 +59,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(FrameworkValidationError.class)
 	public ResponseEntity<Object> handleFrameworkValidationError(FrameworkValidationError ex, WebRequest request) {
 		LOGGER.info("RestExceptionHandler::handleFrameworkValidationError::Start");
-		BusinessValidationResponse validationResponse = new BusinessValidationResponse();
+		BusinessException validationResponse = new BusinessException();
 		Message message = ex.getErrorMessage();
 		if (message != null) {
 			validationResponse.setCode(ex.getErrorMessage().getCode());

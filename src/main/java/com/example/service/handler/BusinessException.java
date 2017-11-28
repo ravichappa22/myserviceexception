@@ -2,7 +2,7 @@ package com.example.service.handler;
 
 import com.bff.core.framework.exception.ValidationResponse;
 
-public class BusinessValidationResponse extends ValidationResponse {
+public class BusinessException extends ValidationResponse {
 	
 	private String addMoredetails;
 

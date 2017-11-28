@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import com.bff.core.framework.exception.ServiceException;
 
 @Service
 public class FeignServiceImplementation {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(FeignServiceImplementation.class);
 
 	@Autowired
 	private FeignInterface feignInterface;
@@ -29,8 +33,10 @@ public class FeignServiceImplementation {
 		// add exception logic here
 		try {
 			//response = feignInterface.getMyName(authorization);
+			LOGGER.debug("debug log calling service");
 			throw new ServiceException("Service Specific Exception happened");
 		} catch (ServiceException | DataAccessException e) {
+			LOGGER.error("Exception Occured=" + e);
 			//create top error
 			Map<String, Object> details = new HashMap<>();
 			details.put("claimNumber", "123456");
@@ -46,9 +52,6 @@ public class FeignServiceImplementation {
 			exceptionMessage.setArguments(subs);
 			List<Message> messageList = new ArrayList<Message>();
 			messageList.add(exceptionMessage);
-			
-			
-			
 			frameworkValidationError.setValidationMessages(messageList);
 			
 			throw frameworkValidationError;
