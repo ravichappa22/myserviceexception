@@ -15,6 +15,8 @@ import com.bff.core.framework.exception.FrameworkValidationError;
 import com.bff.core.framework.exception.Message;
 import com.bff.core.framework.exception.ServiceException;
 
+import feign.FeignException;
+
 @Service
 public class FeignServiceImplementation {
 	
@@ -26,20 +28,20 @@ public class FeignServiceImplementation {
 	@Autowired
 	private MyAnotherServiceClient myAnotherServiceClient;
 	
-	private String authorization="bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTA5NDUyMzEsInVzZXJfbmFtZSI6InNlcnZpY2UtYWNjb3VudC0xIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV93cml0ZSIsIlJPTEVfcmVhZCJdLCJqdGkiOiIwYzU0ZTkyMC02YTAxLTQxMDUtODExZi01ZjQ4OWMzZGRjMDciLCJjbGllbnRfaWQiOiJzZXJ2aWNlLWFjY291bnQtMSIsInNjb3BlIjpbXX0.KzjcUN9TU8SHqOztE8VL8cTBgyNgyl7JeghlEsBPiVa9DaJHq-EmrLEaD8e169qfdGRspb6DJ9t4oe6Q4asKwAtvQtarZaboStgbOXuC8PCM20gLvHAjdyP7sGgVzSFKKoM7haGtqoAUhzeOqoWlsIfkZg9qJeowFWH9LJ0F9w6gS69bPj1lOhxBOEGWz_DM8S_ylxJU9QUY3Cbb8nNM4QaLmrAXvV1AUtrjWvGqXCyaeTb6yd6cQP7Wqvu4jwtezOu3orpp28AwlDvgzfexHcEtPI2cRLff_WAESdv1MExll-ylSilLpVx8lwxFbtk3es0ThKrBGDHIXXSCN97Jhg";
+	private String authorization;
 	
 	public String getMyName(){
 		String response = null;
 		// add exception logic here
 		try {
-			//response = feignInterface.getMyName(authorization);
-			LOGGER.debug("debug log calling service");
-			throw new ServiceException("Service Specific Exception happened");
-		} catch (ServiceException | DataAccessException e) {
-			LOGGER.error("Exception Occured=" + e);
-			//create top error
+			response = feignInterface.getMyName(authorization);
+			LOGGER.info("debug log calling service");
+			//throw new FrameworkValidationError("1000");
+			
+		} catch (FeignException  e) {
+			LOGGER.error("Exception Occured in feign service impl" );
 			Map<String, Object> details = new HashMap<>();
-			details.put("claimNumber", "123456");
+			details.put("claimNumber", "1234567898");
 			details.put("generator", "RestService");
 			details.put("sourceOfError", "MemberValidation");
 			FrameworkValidationError frameworkValidationError = new FrameworkValidationError("1000", details, e);
@@ -48,15 +50,17 @@ public class FeignServiceImplementation {
 			Message exceptionMessage = new Message();
 			exceptionMessage.setCode("1001");
 			String[] subs = new String[1];
-			subs[0] = "123456" + e.getMessage();
+			subs[0] = "123456789";
 			exceptionMessage.setArguments(subs);
 			List<Message> messageList = new ArrayList<Message>();
 			messageList.add(exceptionMessage);
 			frameworkValidationError.setValidationMessages(messageList);
 			
 			throw frameworkValidationError;
+		
+			
 		}
-		//return response;
+		return response;
 	}
 	
 	

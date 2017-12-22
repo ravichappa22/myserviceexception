@@ -79,6 +79,11 @@ public class ExceptionAndValidatorUtils {
 		if (text == null) {
 			if (messageSource != null) {
 				try {
+					/**
+					 * we are going to read this from a remote cache and that cache will be filled at the time of application deployment
+					 * The key for that cache is message code. below code first looks at the remote cache, then looks locally.
+					 */
+					
 					text = messageSource.getMessage(errorMessage.getCode(), errorMessage.getArguments(),
 							Locale.getDefault());
 				} catch (NoSuchMessageException e) {
