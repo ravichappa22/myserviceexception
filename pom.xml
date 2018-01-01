@@ -39,9 +39,9 @@
 			<artifactId>spring-cloud-starter-feign</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.framework</groupId>
-	  		<artifactId>frameworkutility</artifactId>
-	  		<version>0.0.1-SNAPSHOT</version>
+			 <groupId>com.framework</groupId>
+  			<artifactId>frameworkutility</artifactId>
+  			<version>0.0.1-SNAPSHOT</version>
 	  		<exclusions>
 	  			<exclusion>
     				<groupId>org.slf4j</groupId>

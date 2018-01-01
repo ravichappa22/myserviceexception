@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.bff.core.framework.exception.ErrorResponse;
+import com.bff.core.framework.exception.ExceptionAndValidatorUtils;
 import com.bff.core.framework.exception.FrameworkError;
 import com.bff.core.framework.exception.FrameworkValidationError;
 import com.bff.core.framework.exception.Message;

@@ -6,6 +6,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
+import com.bff.core.framework.exception.ExceptionAndValidatorUtils;
 import com.example.service.FeignInterface;
 import com.example.service.MyAnotherServiceClient;
 
@@ -22,5 +23,12 @@ public class MyfeigndemoApplication {
 		ResourceBundleMessageSource obj = new ResourceBundleMessageSource();
 		obj.setBasename("bundles/messages");
 		return obj;
+	}
+	
+	
+	@Bean
+	public ExceptionAndValidatorUtils exceptionAndValidatorUtils() {
+		return new ExceptionAndValidatorUtils();
+		
 	}
 }
